@@ -1,4 +1,4 @@
-# Translator
+# To-do list
 
 It's a simple JavaScript to do list, with priority system and local saves.
 

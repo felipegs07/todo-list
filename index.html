@@ -10,13 +10,11 @@
 <body class="pt-5">
     <div class="container-fluid">
        <div class="row">
-            <div class="col-lg-4"></div>
-           <div class="col-lg-4">
-                
+           <div class="col-lg-3"></div>
+           <div class="col-lg-6">
                 <div  class="card">
                     <div id='cardBody' class="card-body">
                         <h4 class="card-title">To do list</h4>
-
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
@@ -24,14 +22,22 @@
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" value="">
+                                    &nbsp;
+                                <select class="form-control-md">
+                                    <option selected>Priority Level...</option>
+                                    <option>Low</option>
+                                    <option>Normal</option>
+                                    <option>High</option>
+                                    <option>Urgent</option>
+                                </select>
                             </div>
                     </div>
-                    
-                    <button id="btnAdd" class="btn btn-primary">Add to do</button>
+                    <div class="card-body">
+                        <button id="btnAdd" class="btn btn-primary">Add to do</button>
+                    </div>
                 </div>
-
            </div>
-           <div class="col-lg-4"></div>
+           <div class="col-lg-3"></div>
        </div>
     </div> 
     

@@ -4,9 +4,22 @@ import PropTypes from 'prop-types';
 
 class Todos extends Component {
     render(){
-        return this.props.todos.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} inputChangeHandler={this.props.inputChangeHandler} deleteTodoHandler={this.props.deleteTodoHandler} />
-        ));
+        return (
+            <section style={{marginBottom: '5rem'}}>
+                {
+                     this.props.todos.map((todo) => (
+                        <TodoItem 
+                            key={todo.id}
+                            todo={todo}
+                            inputChangeHandler={this.props.inputChangeHandler}
+                            deleteTodoHandler={this.props.deleteTodoHandler}
+                            activeToDo={this.props.activeToDo}
+                            selectFocusToDo={this.props.selectFocusToDo}
+                        />
+                    ))
+                }
+            </section>
+        )
     }
 }
 

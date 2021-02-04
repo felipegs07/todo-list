@@ -49,11 +49,21 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 100%;
 }
 
 .todoItem > p {
   display: inline-block;
   margin-left: 0.5rem;
+}
+
+.todoItem__text {
+  overflow-wrap: break-word;
+  max-width: 90%;
+}
+
+.todoItem__text:hover {
+  cursor: pointer;
 }
 
 .btn {
@@ -103,10 +113,20 @@ form {
   width: 70%;
   margin: 0 auto;
   text-align: center;
+  overflow: hidden;
 }
 
 @media only screen and (max-width: 600px) {
   .container {
     width: 100%;
+    padding: 0 .5rem;
+  }
+
+  .todoItem__text {
+    max-width: 80%;
+  }
+
+  .btn {
+    margin-bottom: .4rem;
   }
 }

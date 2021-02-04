@@ -10,6 +10,10 @@ class App extends Component {
     todos : [],
     activeToDo: null
   }
+  
+  componentDidMount() {
+    this.loadHandler();
+  }
 
   inputChangeHandler = (id) => {
     const todoIndex = this.state.todos.findIndex(t => {
@@ -124,13 +128,19 @@ class App extends Component {
           activeToDo={this.state.activeToDo}
           selectFocusToDo={this.selectFocusToDo}
         />
-        <AddTodo addTodo={this.addTodo} />
-        <Buttons 
-          saveHandler={() => this.saveHandler(this.state)}
-          loadHandler={this.loadHandler}
-          clearAll={this.clearAll}
-          clearCompleted={this.clearCompleted}
-        />
+        {
+          this.state.activeToDo === null ? (
+            <>
+              <AddTodo addTodo={this.addTodo} />
+              <Buttons 
+                saveHandler={() => this.saveHandler(this.state)}
+                loadHandler={this.loadHandler}
+                clearAll={this.clearAll}
+                clearCompleted={this.clearCompleted}
+              />
+            </>
+          ) : null
+        }
       </div>
     );
   }

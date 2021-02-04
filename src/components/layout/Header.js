@@ -5,7 +5,7 @@ class Header extends Component {
         return(
         <div className="header">
             <h1 className="header__title">focus app</h1>
-            <h2 className="header__subtitle">your focus now is</h2>
+            <h2 className="header__subtitle">your focus now is...</h2>
         </div>
         )
     }

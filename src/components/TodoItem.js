@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 class TodoItem extends Component {
 
-    itemStyle = () => {
+    itemStyle = (isFocusMode) => {
         return {
             margin: '10px',
-            fontSize: (this.props.activeToDo === this.props.todo.id) ? '4rem' : '2.2rem',
+            fontSize: isFocusMode ? '4rem' : '2.2rem',
             fontWeight: '700',
             borderRadius: '5px',
             textDecoration: (this.props.todo.completed) ? 'line-through' : 'none',
@@ -17,18 +17,27 @@ class TodoItem extends Component {
     render(){
         const { id, title, completed } = this.props.todo; 
         const { activeToDo } = this.props;
+        const isFocusMode = this.props.activeToDo === this.props.todo.id;
         
         return (
             <>
                 {
                     activeToDo === null || activeToDo === id ? (
-                        <div className="todoItem" style={this.itemStyle()}>
-                            <input type="checkbox" 
-                                onChange={this.props.inputChangeHandler.bind(this,id)}
-                                checked={completed}
-                            />
-                            <p onClick={() => this.props.selectFocusToDo(id)}>{title}</p>
-                            <button onClick={this.props.deleteTodoHandler.bind(this,id)} style={buttonDeleteStyle}>delete</button>
+                        <div className="todoItem" style={this.itemStyle(isFocusMode)}>
+                            {
+                                !isFocusMode ? (
+                                    <input type="checkbox" 
+                                        onChange={this.props.inputChangeHandler.bind(this,id)}
+                                        checked={completed}
+                                    />
+                               ) : null
+                            }
+                            <p className="todoItem__text" onClick={() => this.props.selectFocusToDo(id)} title="set this to do into focus mode">{title}</p>
+                            {
+                                !isFocusMode ? (
+                                    <button onClick={this.props.deleteTodoHandler.bind(this,id)} style={buttonDeleteStyle}>delete</button>
+                                ) : null
+                            }
                         </div>
                     ) : null
                 }

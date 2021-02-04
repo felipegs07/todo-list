@@ -3,9 +3,13 @@ import './App.css';
 import Todos from './components/Todos';
 import Header from './components/layout/Header';
 import AddTodo from './components/AddTodo';
+import Buttons from './components/Controls';
 
 class App extends Component {
-  state = { todos : [] }
+  state = { 
+    todos : [],
+    activeToDo: null
+  }
 
   inputChangeHandler = (id) => {
     const todoIndex = this.state.todos.findIndex(t => {
@@ -36,6 +40,11 @@ class App extends Component {
       todos: todosUpdated
     });
 
+    const state = {
+      todos: todosUpdated,
+      activeToDo: this.state.activeToDo
+    }
+    this.saveHandler(state);
   }
 
   addTodo = (title) => {
@@ -47,28 +56,81 @@ class App extends Component {
     const todos = [...this.state.todos, newTodo];
 
     this.setState({todos: todos});
+    const state = {
+      todos,
+      activeToDo: this.state.activeToDo
+    }
+    this.saveHandler(state);
   }
 
-  saveHandler = () => {
-    const stateJson = JSON.stringify(this.state.todos);
-    localStorage.setItem("todolist", stateJson);
+  saveHandler = (newState) => {
+    const stateJson = JSON.stringify(newState);
+    localStorage.setItem("focus-app", stateJson);
   }
 
   loadHandler = () => {
-    const stateJson = localStorage.getItem("todolist");
-    const todos = JSON.parse(stateJson);
-
-    this.setState({ todos: todos });
+    const stateJson = localStorage.getItem("focus-app");
+    if (stateJson) {
+      const state = JSON.parse(stateJson);
+      
+      this.setState({ ...state });
+    } else {
+      alert('Não existe dados do storage para carregar.')
+    }
   }
+
+  selectFocusToDo = (id) => {
+    if (this.state.activeToDo === id) {
+      this.setState({
+        activeToDo: null
+      });
+    } else {
+      this.setState({
+        activeToDo: id
+      });
+    }
+  };
+
+  clearAll = () => {
+    const state = {
+      todos : [],
+      activeToDo: null
+    };
+
+    this.setState(state);
+    this.saveHandler(state);
+  };
+
+  clearCompleted = () => {
+    const todos = [...this.state.todos];
+    const todosNotCompleted = todos.filter(todo => todo.completed !== true);
+    const state = {
+      todos : todosNotCompleted,
+      activeToDo: null
+    };
+
+    this.setState(state);
+    this.saveHandler(state);
+  };
 
   render() {
     return (
-      <div className="App">
-        <Header saveHandler={this.saveHandler} loadHandler={this.loadHandler} />
+      <div className="container">
+        <Header />
+        <Todos 
+          todos={this.state.todos} 
+          inputChangeHandler={this.inputChangeHandler} 
+          deleteTodoHandler={this.deleteTodoHandler}
+          activeToDo={this.state.activeToDo}
+          selectFocusToDo={this.selectFocusToDo}
+        />
         <AddTodo addTodo={this.addTodo} />
-        <Todos todos={this.state.todos} 
-        inputChangeHandler={this.inputChangeHandler} 
-        deleteTodoHandler={this.deleteTodoHandler}/>
+        <Buttons 
+          saveHandler={() => this.saveHandler(this.state)}
+          loadHandler={this.loadHandler}
+          clearAll={this.clearAll}
+          clearCompleted={this.clearCompleted}
+        />
       </div>
     );
   }

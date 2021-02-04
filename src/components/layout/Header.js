@@ -4,20 +4,11 @@ class Header extends Component {
     render(){
         return(
         <div className="header">
-            <h1>Todo List</h1>
-            <button onClick={this.props.saveHandler} style={btn}>Save</button><button onClick={this.props.loadHandler} style={btn}>Load</button>
+            <h1 className="header__title">focus app</h1>
+            <h2 className="header__subtitle">your focus now is</h2>
         </div>
         )
     }
-}
-
-const btn = {
-    backgroundColor: '#fff',
-    borderRadius: '5px', 
-    border: '1px solid #000',
-    padding: '0.2rem 0.6rem',
-    marginRight: '0.5rem',
-    cursor: 'pointer'
 }
 
 export default Header;
